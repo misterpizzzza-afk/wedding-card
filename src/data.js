@@ -1,3 +1,11 @@
+import DSC00934 from './assets/gallery/DSC00934.JPG'
+import DSC00946 from './assets/gallery/DSC00946.JPG'
+import DSC01306 from './assets/gallery/DSC01306.JPG'
+import DSC01503 from './assets/gallery/DSC01503.JPG'
+import DSC01707 from './assets/gallery/DSC01707.JPG'
+import DSC01784 from './assets/gallery/DSC01784.JPG'
+import DSC02284 from './assets/gallery/DSC02284.JPG'
+
 // Customize these values (names, date, venue, accounts, images)
 export const DATA = {
   couple: {
@@ -10,36 +18,36 @@ export const DATA = {
     address: '서울 영등포구 국회대로38길 2'
   },
   gallery: [
-    '/src/assets/gallery/DSC00934.JPG',
-    '/src/assets/gallery/DSC00946.JPG',
-    '/src/assets/gallery/DSC01306.JPG',
-    '/src/assets/gallery/DSC01503.JPG',
-    '/src/assets/gallery/DSC01707.JPG',
-    '/src/assets/gallery/DSC01784.JPG',
-    '/src/assets/gallery/DSC02284.JPG',
-    '/src/assets/gallery/DSC00934.JPG',
-    '/src/assets/gallery/DSC00946.JPG',
-    '/src/assets/gallery/DSC01306.JPG',
-    '/src/assets/gallery/DSC01503.JPG',
-    '/src/assets/gallery/DSC01707.JPG',
-    '/src/assets/gallery/DSC01784.JPG',
-    '/src/assets/gallery/DSC02284.JPG',
-    '/src/assets/gallery/DSC00934.JPG',
-    '/src/assets/gallery/DSC00946.JPG',
-    '/src/assets/gallery/DSC01306.JPG',
-    '/src/assets/gallery/DSC01503.JPG',
-    '/src/assets/gallery/DSC01707.JPG',
-    '/src/assets/gallery/DSC01784.JPG',
-    '/src/assets/gallery/DSC02284.JPG',
-    '/src/assets/gallery/DSC00934.JPG',
-    '/src/assets/gallery/DSC00946.JPG',
-    '/src/assets/gallery/DSC01306.JPG',
-    '/src/assets/gallery/DSC01503.JPG',
-    '/src/assets/gallery/DSC01707.JPG',
-    '/src/assets/gallery/DSC01784.JPG',
-    '/src/assets/gallery/DSC02284.JPG',
-    '/src/assets/gallery/DSC00934.JPG',
-    '/src/assets/gallery/DSC00946.JPG'
+    DSC00934,
+    DSC00946,
+    DSC01306,
+    DSC01503,
+    DSC01707,
+    DSC01784,
+    DSC02284,
+    DSC00934,
+    DSC00946,
+    DSC01306,
+    DSC01503,
+    DSC01707,
+    DSC01784,
+    DSC02284,
+    DSC00934,
+    DSC00946,
+    DSC01306,
+    DSC01503,
+    DSC01707,
+    DSC01784,
+    DSC02284,
+    DSC00934,
+    DSC00946,
+    DSC01306,
+    DSC01503,
+    DSC01707,
+    DSC01784,
+    DSC02284,
+    DSC00934,
+    DSC00946
   ],
   accounts: [
     { 

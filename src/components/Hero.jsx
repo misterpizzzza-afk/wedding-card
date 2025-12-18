@@ -1,5 +1,6 @@
 import React from 'react'
 import { DATA } from '../data'
+import heroImage from '../assets/hero/DSC00934.JPG'
 
 export default function Hero() {
   return (
@@ -7,7 +8,7 @@ export default function Hero() {
       {/* 세로 이미지 */}
       <div className="relative w-full">
         <img
-          src="/src/assets/hero/DSC00934.JPG"
+          src={heroImage}
           alt="wedding"
           className="w-full h-auto object-contain"
         />

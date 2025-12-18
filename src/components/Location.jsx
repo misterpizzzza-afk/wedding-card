@@ -1,5 +1,8 @@
 import React from 'react'
 import { DATA } from '../data'
+import naverMapLogo from '../assets/logo/naver-map.webp'
+import kakaoMapLogo from '../assets/logo/kakao-map.png'
+import tmapLogo from '../assets/logo/tmap.svg'
 
 export default function Location() {
   const { venue } = DATA
@@ -24,15 +27,15 @@ export default function Location() {
       {/* 내비게이션 버튼 */}
       <div className="flex gap-2 justify-center mb-6">
         <a className="flex items-center gap-2 text-sm px-3 py-2 border border-gray-300 rounded-full hover:border-gray-400 transition-all font-normal" href="https://map.naver.com/index.nhn?query=더컨벤션 영등포" target="_blank" rel="noreferrer">
-          <img src="/src/assets/logo/naver-map.webp" alt="네이버 지도" className="w-4 h-4" />
+          <img src={naverMapLogo} alt="네이버 지도" className="w-4 h-4" />
           네이버
         </a>
         <a className="flex items-center gap-2 text-sm px-3 py-2 border border-gray-300 rounded-full hover:border-gray-400 transition-all font-normal" href="https://map.kakao.com/link/search/더컨벤션 영등포" target="_blank" rel="noreferrer">
-          <img src="/src/assets/logo/kakao-map.png" alt="카카오맵" className="w-4 h-4" />
+          <img src={kakaoMapLogo} alt="카카오맵" className="w-4 h-4" />
           카카오
         </a>
         <a className="flex items-center gap-2 text-sm px-3 py-2 border border-gray-300 rounded-full hover:border-gray-400 transition-all font-normal" href="https://tmap.life/app/route/viapoint?name=더컨벤션 영등포" target="_blank" rel="noreferrer">
-          <img src="/src/assets/logo/tmap.svg" alt="티맵" className="w-4 h-4" />
+          <img src={tmapLogo} alt="티맵" className="w-4 h-4" />
           티맵
         </a>
       </div>
