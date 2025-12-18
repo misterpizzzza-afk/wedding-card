@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --main-color: #8B7B6B;
+  --bg-color: #ffffff;
+  --point-color: #FFF5F0;
+  --accent: #D4A574;
+}
+
+html, body, #root { height: 100%; }
+body { @apply bg-gray-50 text-gray-800 font-sans font-normal; }
+
+/* Typography */
+h1, h2 { font-family: 'Playfair Display', serif; }
+body { font-family: 'Noto Sans KR', sans-serif; font-weight: 400; }
+
+/* hero specific */
+.hero-bg { background-position: center; background-size: cover; }
+
+.card { @apply bg-white rounded-lg shadow-sm border border-gray-100 p-5; }
+
+.divider { @apply h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-6; }
+
+.section-title { @apply text-center text-2xl font-semibold text-gray-900 mb-4 tracking-wide; }
+
+.btn-primary { @apply px-4 py-2 bg-gradient-to-r from-amber-100 to-amber-50 hover:from-amber-200 hover:to-amber-100 rounded-full text-sm font-medium transition-all; }
+
+/* 세로 이미지 비율 */
+.aspect-\[3\/4\] {
+  aspect-ratio: 3 / 4;
+}
+
+/* Scroll fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.fade-in.visible {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+

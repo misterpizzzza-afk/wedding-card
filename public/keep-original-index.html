@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리의 결혼식에 초대합니다</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;400&family=Pretendard:wght@100;300;400&display=swap" rel="stylesheet">
+    <style>
+        :root { --main-color: #7d7d7d; --bg-color: #ffffff; --point-color: #f7f7f7; }
+        body { margin: 0; padding: 0; background-color: #eee; font-family: 'Pretendard', sans-serif; word-break: keep-all; }
+        .wrapper { max-width: 420px; margin: 0 auto; background-color: var(--bg-color); min-height: 100vh; overflow: hidden; }
+        
+        /* 메인 비주얼: 감성적인 느낌 */
+        .main { position: relative; width: 100%; height: 100vh; background: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80') center/cover no-repeat; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 80px; box-sizing: border-box; }
+        .main::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.1); }
+        .main-title { position: relative; z-index: 1; color: white; text-align: center; text-shadow: 0 2px 10px rgba(0,0,0,0.3); font-family: 'Noto Serif KR', serif; }
+        
+        /* 텍스트 스타일 */
+        section { padding: 80px 30px; text-align: center; }
+        .section-title { font-family: 'Noto Serif KR', serif; font-size: 1.2rem; color: #888; letter-spacing: 4px; margin-bottom: 40px; }
+        .content { font-size: 1rem; line-height: 2.2; font-weight: 300; color: #444; }
+        
+        /* 갤러리 그리드 */
+        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+        .gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; }
+
+        /* 버튼 디자인 */
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 30px; }
+        .btn { padding: 15px; border: 1px solid #ddd; background: white; border-radius: 2px; text-decoration: none; color: #666; font-size: 0.9rem; transition: 0.3s; }
+        .btn:active { background: #f0f0f0; }
+
+        /* 디데이/날짜 강조 */
+        .date-box { background: var(--point-color); padding: 40px 20px; border-radius: 10px; margin: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="main">
+        <div class="main-title">
+            <p style="font-size: 1.1rem; margin-bottom: 10px;">SAVE THE DATE</p>
+            <h1 style="font-size: 2.2rem; font-weight: 200;">철수 & 영희</h1>
+            <p style="font-size: 1rem; opacity: 0.9;">2025. 10. 25. SAT PM 12:00</p>
+        </div>
+    </div>
+
+    <section>
+        <div class="section-title">INVITATION</div>
+        <div class="content">
+            함께 있을 때 가장 나다워지는 사람을 만났습니다.<br>
+            서로의 결핍을 채워주기보다<br>
+            서로의 충만함을 나누는 삶을 살겠습니다.<br><br>
+            저희의 시작을 곁에서 축복해 주세요.
+        </div>
+        <p style="margin-top: 40px; color: #888;">신랑측 부 김아빠 · 모 이엄마의 장남 <b>철수</b><br>신부측 부 박아빠 · 모 최엄마의 장녀 <b>영희</b></p>
+    </section>
+
+    <section style="background: #fafafa;">
+        <div class="section-title">GALLERY</div>
+        <div class="gallery">
+            <img src="https://via.placeholder.com/300x400" alt="사진1">
+            <img src="https://via.placeholder.com/300x400" alt="사진2">
+            <img src="https://via.placeholder.com/300x400" alt="사진3">
+            <img src="https://via.placeholder.com/300x400" alt="사진4">
+        </div>
+    </section>
+
+    <section>
+        <div class="section-title">LOCATION</div>
+        <div class="content">
+            <strong>행복예식장 1층 그랜드홀</strong><br>
+            서울 강남구 테헤란로 123<br>
+            <span style="font-size: 0.85rem; color: #999;">(주차 2시간 무료 / 2호선 강남역 1번 출구)</span>
+        </div>
+        <div class="btn-group">
+            <a href="https://map.kakao.com" class="btn">카카오맵 연결</a>
+            <a href="https://map.naver.com" class="btn">네이버 지도 연결</a>
+        </div>
+    </section>
+
+    <section style="background: #f4f4f4;">
+        <div class="section-title">ACCOUNT</div>
+        <p style="font-size: 0.9rem; color: #777; margin-bottom: 30px;">축복의 마음을 담아 조심스럽게 계좌를 올립니다.<br>너그러운 마음으로 봐주시면 감사하겠습니다.</p>
+        <div style="text-align: left; background: white; padding: 20px; border-radius: 5px; margin-bottom: 10px;">
+            <span style="font-size: 0.8rem; color: #aaa;">신랑측</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
+                <span>국민 123-456-7890</span>
+                <button onclick="copyText('123-456-7890')" style="border: none; background: #eee; padding: 5px 10px; font-size: 0.7rem;">복사</button>
+            </div>
+        </div>
+        <div style="text-align: left; background: white; padding: 20px; border-radius: 5px;">
+            <span style="font-size: 0.8rem; color: #aaa;">신부측</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
+                <span>신한 987-654-3210</span>
+                <button onclick="copyText('987-654-3210')" style="border: none; background: #eee; padding: 5px 10px; font-size: 0.7rem;">복사</button>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 60px 0; background: #fff; color: #ccc; font-size: 0.7rem; letter-spacing: 2px;">
+        2025. 10. 25. CHULSOO & YOUNGHEE
+    </footer>
+</div>
+
+<script>
+    function copyText(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('계좌번호가 복사되었습니다.');
+        });
+    }
+</script>
+
+</body>
+</html>
