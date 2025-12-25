@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import ReactDOM from 'react-dom'
 import { DATA } from '../data'
 
 export default function Gallery() {
@@ -52,10 +53,24 @@ export default function Gallery() {
         setCurrentIndex((prev) => (prev - 1 + DATA.gallery.length) % DATA.gallery.length)
       } else if (e.key === 'ArrowRight') {
         setCurrentIndex((prev) => (prev + 1) % DATA.gallery.length)
+      } else if (e.key === 'Escape') {
+        setOpen(false)
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [open])
+
+  // 모달 열릴 때 body 스크롤 방지
+  React.useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
   }, [open])
 
   return (
@@ -92,23 +107,59 @@ export default function Gallery() {
         </button>
       )}
 
-      {/* 이미지 상세보기 모달 */}
-      {open && (
+      {/* 이미지 상세보기 모달 - Portal로 렌더링 */}
+      {open && ReactDOM.createPortal(
         <div 
-          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center"
-          onClick={() => setOpen(false)}
+          className="fixed inset-0 bg-white/95 backdrop-blur-lg flex flex-col"
+          style={{ zIndex: 9999 }}
+          onClick={(e) => {
+            e.stopPropagation()
+            setOpen(false)
+          }}
         >
-          <div 
-            className="relative w-full h-full flex items-center justify-center"
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
+          {/* 이미지 카운터 */}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/50 text-gray-200 px-3 py-1 rounded text-sm pointer-events-none">
+            {currentIndex + 1} / {DATA.gallery.length}
+          </div>
+
+          {/* 닫기 버튼 */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setOpen(false)
+            }}
+            className="absolute top-4 right-4 bg-black/50 text-gray-200 hover:bg-black/70 text-xl z-10 w-8 h-8 flex items-center justify-center rounded-full"
           >
-            {/* 이미지 */}
-            <img 
-              src={DATA.gallery[currentIndex]} 
-              alt="detail" 
-              className="max-h-[90vh] max-w-[90vw] object-contain"
-            />
+            ✕
+          </button>
+
+          <div 
+            className="flex-1 relative overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 이미지 슬라이드 컨테이너 */}
+            <div 
+              className="flex h-full transition-transform duration-500 ease-out"
+              style={{ 
+                transform: `translateX(-${currentIndex * 100}vw)`
+              }}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              {DATA.gallery.map((src, i) => (
+                <div 
+                  key={i} 
+                  className="h-full flex items-center justify-center flex-shrink-0"
+                  style={{ width: '100vw' }}
+                >
+                  <img 
+                    src={src} 
+                    alt={`detail-${i}`} 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ))}
+            </div>
 
             {/* 좌측 버튼 */}
             <button
@@ -116,9 +167,9 @@ export default function Gallery() {
                 e.stopPropagation()
                 setCurrentIndex((prev) => (prev - 1 + DATA.gallery.length) % DATA.gallery.length)
               }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition-all text-2xl"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-gray-200 p-1.5 rounded-full transition-all text-2xl flex items-center justify-center leading-none"
             >
-              ‹
+              <span style={{ position: 'relative', top: '-3px' }}>‹</span>
             </button>
 
             {/* 우측 버튼 */}
@@ -127,25 +178,38 @@ export default function Gallery() {
                 e.stopPropagation()
                 setCurrentIndex((prev) => (prev + 1) % DATA.gallery.length)
               }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition-all text-2xl"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-gray-200 p-1.5 rounded-full transition-all text-2xl flex items-center justify-center leading-none"
             >
-              ›
-            </button>
-
-            {/* 이미지 카운터 */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded text-xs">
-              {currentIndex + 1} / {DATA.gallery.length}
-            </div>
-
-            {/* 닫기 버튼 */}
-            <button
-              onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 text-white hover:text-gray-300 text-2xl"
-            >
-              ✕
+              <span style={{ position: 'relative', top: '-3px' }}>›</span>
             </button>
           </div>
-        </div>
+
+          {/* 썸네일 리스트 */}
+          <div className="w-full bg-black/70 py-4 backdrop-blur-sm" onClick={(e) => e.stopPropagation()}>
+            <div className="overflow-x-auto">
+              <div className="flex gap-2 justify-start px-4 min-w-max mx-auto" style={{ maxWidth: 'fit-content' }}>
+                {DATA.gallery.map((src, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentIndex(i)}
+                    className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all ${
+                      currentIndex === i 
+                        ? 'ring-3 ring-white scale-110 opacity-100' 
+                        : 'opacity-50 hover:opacity-80'
+                    }`}
+                  >
+                    <img 
+                      src={src} 
+                      alt={`thumbnail-${i}`} 
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
       )}
     </section>
   )
