@@ -19,9 +19,7 @@ export default function Gallery() {
   const handleToggleExpanded = () => {
     if (expanded) {
       // 접기 버튼을 눌렀을 때 갤러리 상단으로 스크롤
-      setTimeout(() => {
-        galleryRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }, 0)
+      galleryRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
     setExpanded(!expanded)
   }
@@ -95,7 +93,12 @@ export default function Gallery() {
       <h2 className="section-title">갤러리</h2>
       
       {/* 갤러리 그리드 */}
-      <div className="grid grid-cols-3 gap-2">
+      <div 
+        className="grid grid-cols-3 gap-2 overflow-hidden transition-all duration-700 ease-in-out"
+        style={{
+          maxHeight: expanded ? '2000px' : `${Math.ceil(itemsPerPage / 3) * 140}px`,
+        }}
+      >
         {displayedImages.map((src, i) => (
           <div 
             key={i} 
@@ -204,7 +207,7 @@ export default function Gallery() {
 
           {/* 썸네일 리스트 */}
           <div className="w-full bg-black/70 backdrop-blur-sm" style={{ height: '72px', display: 'flex', alignItems: 'center' }} onClick={(e) => e.stopPropagation()}>
-            <div className="overflow-x-auto w-full" ref={thumbnailContainerRef}>
+            <div className="overflow-x-auto overflow-y-hidden w-full" ref={thumbnailContainerRef}>
               <div className="flex gap-1 justify-start px-4 min-w-max" style={{ maxWidth: 'fit-content' }}>
                 {DATA.gallery.map((src, i) => (
                   <button
