@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { DATA } from '../data'
 
 function CopyButton({ text }) {
@@ -22,6 +22,7 @@ function CopyButton({ text }) {
 
 export default function Account() {
   const [expandedSides, setExpandedSides] = useState({})
+  const contentRefs = useRef({})
 
   const toggleSide = (side) => {
     setExpandedSides(prev => ({
@@ -53,21 +54,33 @@ export default function Account() {
             </button>
 
             {/* 펼쳐진 내용 */}
-            {expandedSides[acc.side] && (
+            <div
+              ref={(el) => {
+                if (el) contentRefs.current[acc.side] = el
+              }}
+              style={{
+                maxHeight: expandedSides[acc.side] 
+                  ? contentRefs.current[acc.side]?.scrollHeight + 'px'
+                  : '0px',
+                overflow: 'hidden',
+                transition: 'max-height 0.3s ease-in-out',
+              }}
+            >
               <div className="space-y-2 mt-2">
                 {acc.people.map((person, j) => (
                   <div key={j} className="border border-gray-200 rounded-lg p-3">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <p className="text-sm text-gray-600 font-normal mb-1">{person.name}</p>
-                        <p className="text-base text-gray-800 font-normal">{person.bank} {person.number}</p>
+                        <p className="text-sm text-gray-600 font-semibold mb-3">{person.desc}</p>
+                        <p className="text-base text-gray-800 font-normal mb-2">{person.number}</p>
+                        <p className="text-sm text-gray-700 font-normal">{person.bank} {person.name}</p>
                       </div>
                       <CopyButton text={person.number} />
                     </div>
                   </div>
                 ))}
               </div>
-            )}
+            </div>
           </div>
         ))}
       </div>

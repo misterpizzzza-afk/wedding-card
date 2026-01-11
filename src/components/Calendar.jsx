@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { DATA } from '../data'
+import { createICS } from '../utils/ics'
 
 function getRemaining(target) {
   const now = new Date()
@@ -38,6 +39,28 @@ export default function Calendar() {
   const [time, setTime] = useState(() => getRemaining(DATA.datetime))
   const { daysInMonth, currentDay, currentMonth } = renderCalendar(DATA.datetime)
 
+  const handleDateClick = () => {
+    const weddingStart = new Date(DATA.datetime)
+    const weddingEnd = new Date(weddingStart.getTime() + 2 * 60 * 60 * 1000) // 2시간 소요로 설정
+
+    const icsBlob = createICS({
+      title: `${DATA.couple.groom} & ${DATA.couple.bride} 결혼식`,
+      description: DATA.venue.name,
+      start: weddingStart,
+      end: weddingEnd
+    })
+
+    // .ics 파일 다운로드
+    const url = URL.createObjectURL(icsBlob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = '결혼식_초대장.ics'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  }
+
   useEffect(() => {
     const id = setInterval(() => {
       setTime(getRemaining(DATA.datetime))
@@ -59,9 +82,12 @@ export default function Calendar() {
     <section className="bg-white">
       <div className="max-w-md mx-auto px-4 py-12 text-center">
         {/* 날짜 및 시간 */}
-        <p className="text-gray-800 font-normal text-base mb-8 leading-relaxed">
+        <button 
+          onClick={handleDateClick}
+          className="text-gray-800 font-normal text-base mb-8 leading-relaxed hover:text-gray-600 transition-colors cursor-pointer hover:underline"
+        >
           {dateStr}
-        </p>
+        </button>
 
         {/* 달력 */}
         <div className="mb-6 w-full">
@@ -75,11 +101,12 @@ export default function Calendar() {
               </div>
             ))}
             {daysInMonth.map((d, i) => (
-              <div
+              <button
                 key={`day-${i}`}
-                className={`relative w-full h-10 text-base flex items-center justify-center rounded font-medium ${
+                onClick={d === currentDay ? handleDateClick : undefined}
+                className={`relative w-full h-10 text-base flex items-center justify-center rounded font-medium transition-all ${
                   d === currentDay
-                    ? 'bg-gray-800 text-white font-bold'
+                    ? 'bg-gray-800 text-white font-bold cursor-pointer hover:bg-gray-700'
                     : d
                     ? 'text-gray-700'
                     : 'text-gray-300'
@@ -91,7 +118,7 @@ export default function Calendar() {
                     11:20
                   </div>
                 )}
-              </div>
+              </button>
             ))}
           </div>
         </div>

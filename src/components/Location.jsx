@@ -100,7 +100,7 @@ export default function Location() {
             <span className="inline-block w-3 h-3 rounded-full bg-green-500 mr-2 align-middle"></span>2호선 
             <span className="inline-block w-3 h-3 rounded-full bg-purple-500 mr-2 align-middle ml-2"></span>5호선
           </p>
-          <p className="text-sm font-normal">영등포구청역 4번 출구 앞</p>
+          <p className="text-sm font-normal">영등포구청역 ④번 출구 도보 3분</p>
         </div>
       </div>
     </section>

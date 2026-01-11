@@ -2,16 +2,25 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 export default function KakaoShare() {
-  const [showButtons, setShowButtons] = useState(true)
+  const [showButtons, setShowButtons] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Hero 섹션이 보이는 동안(대략 300px 이상 스크롤되지 않았을 때) 버튼 숨기기
-      setShowButtons(window.scrollY > 300)
+    const heroElement = document.getElementById('hero')
+    
+    if (heroElement) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            // Hero 섹션의 상단 50%가 화면에서 사라지면 버튼 표시
+            setShowButtons(!entry.isIntersecting)
+          })
+        },
+        { threshold: 0.5 }
+      )
+      
+      observer.observe(heroElement)
+      return () => observer.unobserve(heroElement)
     }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const scrollToTop = () => {
@@ -44,11 +53,14 @@ export default function KakaoShare() {
   }
 
   return (
-    <div className={`fixed right-1/2 translate-x-52 bottom-2 flex flex-col gap-2 transition-all duration-500 ${showButtons ? 'opacity-50 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+    <div className={`fixed right-6 sm:right-auto sm:left-1/2 sm:translate-x-28 bottom-2 flex flex-col gap-2 transition-all duration-500 ${showButtons ? 'opacity-50 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
       {/* 최상단 이동 버튼 */}
       <button
-        onClick={scrollToTop}
-        className="w-12 h-12 bg-gray-800 hover:bg-gray-900 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:opacity-100 opacity-50"
+        onClick={(e) => {
+          scrollToTop()
+          e.currentTarget.blur()
+        }}
+        className="w-12 h-12 bg-gray-800 hover:bg-gray-900 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:opacity-100 opacity-50 focus:outline-none"
         title="최상단으로 이동"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -58,8 +70,11 @@ export default function KakaoShare() {
 
       {/* 공유하기 버튼 */}
       <button
-        onClick={handleKakaoShare}
-        className="w-12 h-12 bg-gray-800 hover:bg-gray-900 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:opacity-100 opacity-50"
+        onClick={(e) => {
+          handleKakaoShare()
+          e.currentTarget.blur()
+        }}
+        className="w-12 h-12 bg-gray-800 hover:bg-gray-900 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:opacity-100 opacity-50 focus:outline-none"
         title="카카오톡으로 공유"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

@@ -1,10 +1,10 @@
 import React from 'react'
 import { DATA } from '../data'
-import heroImage from '../assets/hero/DSC00934.JPG'
+import heroImage from '../assets/hero/DSC00934-sizedown.png'
 
 export default function Hero() {
   return (
-    <header className="relative overflow-hidden bg-white">
+    <header id="hero" className="relative overflow-hidden bg-white">
       {/* 세로 이미지 */}
       <div className="relative w-full">
         <img

@@ -50,35 +50,35 @@ export default function App() {
 
   return (
     <>
-      <BackgroundMusic />
-      <div className={`max-w-md mx-auto bg-white min-h-screen shadow-xl transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'}`}>
-      <Hero />
-      <main className="space-y-0">
-        <div className="px-6 py-8">
-          <div className="fade-in">
-            <Invitation />
+      <div className={`max-w-md mx-auto bg-white min-h-screen shadow-xl transition-opacity duration-500 relative ${fadeIn ? 'opacity-100' : 'opacity-0'}`}>
+        <BackgroundMusic />
+        <Hero />
+        <main className="space-y-0">
+          <div className="px-6 py-8">
+            <div className="fade-in">
+              <Invitation />
+            </div>
+            <div className="divider my-8" />
+            <div className="fade-in">
+              <Calendar />
+            </div>
+            <div className="divider my-8" />
+            <div className="fade-in">
+              <Gallery />
+            </div>
+            <div className="divider my-8" />
+            <div className="fade-in">
+              <Location />
+            </div>
+            <div className="divider my-8" />
+            <div className="fade-in">
+              <Account />
+            </div>
           </div>
-          <div className="divider my-8" />
-          <div className="fade-in">
-            <Calendar />
-          </div>
-          <div className="divider my-8" />
-          <div className="fade-in">
-            <Gallery />
-          </div>
-          <div className="divider my-8" />
-          <div className="fade-in">
-            <Location />
-          </div>
-          <div className="divider my-8" />
-          <div className="fade-in">
-            <Account />
-          </div>
-        </div>
-      </main>
-      <Footer />
-      <KakaoShare />
-    </div>
+        </main>
+        <Footer />
+        <KakaoShare />
+      </div>
     </>
   )
 }

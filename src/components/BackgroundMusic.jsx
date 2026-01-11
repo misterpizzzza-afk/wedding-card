@@ -1,48 +1,44 @@
 import React, { useState, useRef, useEffect } from 'react'
+import davichMp3 from '../assets/다비치 (DAVICHI)  팡파레 (Fanfare) Official MV - 다비치 DAVICHI.mp3'
 
 export default function BackgroundMusic() {
   const [isMuted, setIsMuted] = useState(true)
-  const [player, setPlayer] = useState(null)
   const [showTooltip, setShowTooltip] = useState(false)
-  const playerRef = useRef(null)
+  const [showMessage, setShowMessage] = useState(true)
+  const [isFirstClick, setIsFirstClick] = useState(true)
+  const audioRef = useRef(null)
 
   useEffect(() => {
-    // YouTube IFrame API 로드
-    const tag = document.createElement('script')
-    tag.src = 'https://www.youtube.com/iframe_api'
-    const firstScriptTag = document.getElementsByTagName('script')[0]
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+    const audio = new Audio(davichMp3)
+    audio.loop = true
+    audio.volume = 0.1 // 10% 볼륨
+    audioRef.current = audio
 
-    // API 준비되면 플레이어 생성
-    window.onYouTubeIframeAPIReady = () => {
-      const ytPlayer = new window.YT.Player(playerRef.current, {
-        videoId: 'BtPHw6YLMN0',
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          loop: 1,
-          playlist: 'BtPHw6YLMN0',
-          mute: 1
-        },
-        events: {
-          onReady: (event) => {
-            setPlayer(event.target)
-            event.target.setVolume(10) // 볼륨 10%로 설정
-            event.target.playVideo()
-          }
-        }
-      })
+    // 메시지 2초 후 사라지기
+    setTimeout(() => {
+      setShowMessage(false)
+    }, 2000)
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause()
+      }
     }
   }, [])
 
   const toggleMute = () => {
-    if (player) {
-      if (isMuted) {
-        player.unMute()
+    if (audioRef.current) {
+      if (isFirstClick) {
+        // 첫 번째 클릭: 재생 시작 및 음소거 해제
+        audioRef.current.play()
+        audioRef.current.muted = false
+        setIsMuted(false)
+        setIsFirstClick(false)
       } else {
-        player.mute()
+        // 이후 클릭: 음소거 토글 (재생은 계속)
+        audioRef.current.muted = !audioRef.current.muted
+        setIsMuted(audioRef.current.muted)
       }
-      setIsMuted(!isMuted)
       
       // 말풍선 표시
       setShowTooltip(true)
@@ -54,25 +50,46 @@ export default function BackgroundMusic() {
 
   return (
     <>
-      {/* 유튜브 플레이어 (숨김) */}
-      <div style={{ position: 'fixed', left: '-9999px', top: '-9999px' }}>
-        <div ref={playerRef}></div>
-      </div>
+      {/* 배경음악 준비 메시지 */}
+      {showMessage && (
+        <div className="fixed top-0 left-0 right-0 z-50 flex justify-center animate-slideDownUp">
+          <div className="bg-gray-500 bg-opacity-60 text-white py-2 px-6 rounded-b-lg text-center max-w-md mx-auto">
+            <p className="text-sm font-light">배경음악이 준비 되었습니다.</p>
+          </div>
+        </div>
+      )}
+      
+      {/* 오디오 요소 (숨김) */}
+      <audio ref={audioRef} style={{ display: 'none' }} />
       
       {/* 말풍선 */}
-      <div className={`fixed top-6 right-16 z-40 transition-all duration-300 flex items-center ${showTooltip ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
-        <div className="bg-white shadow-lg rounded-xl px-3 py-1.5 border border-gray-200 relative">
-          <div className="text-gray-800 font-medium whitespace-nowrap" style={{ fontFamily: "'NanumBuJangNimNunCiCe', cursive", fontSize: '16px', lineHeight: '1.2' }}>다비치 - 팡파레</div>
-          {/* 오른쪽 화살표 */}
-          <div className="absolute right-0 top-1/2 transform translate-x-full -translate-y-1/2">
-            <div className="w-0 h-0 border-t-6 border-t-transparent border-b-6 border-b-transparent border-l-6 border-l-white" style={{ borderTopWidth: '6px', borderBottomWidth: '6px', borderLeftWidth: '6px' }}></div>
-          </div>
+      <div 
+        className="fixed top-6 z-40 origin-right flex items-center h-8"
+        style={{ 
+          right: '65px',
+          transform: showTooltip ? 'scaleX(1)' : 'scaleX(0)',
+          opacity: showTooltip ? 1 : 0,
+          transition: 'all 0.4s ease-in-out'
+        }}
+      >
+        <div className="relative bg-white shadow-lg rounded-xl px-3 py-1 border border-gray-200 whitespace-nowrap flex items-center h-full">
+          <div className="text-gray-800 font-medium" style={{ fontFamily: "'NanumBuJangNimNunCiCe', cursive", fontSize: '14px' }}>다비치 - 팡파레</div>
+          {/* 오른쪽 화살표 삼각형 */}
+          <div 
+            className="absolute top-1/2 -translate-y-1/2 border-l-8 border-t-4 border-b-4"
+            style={{
+              right: '-8px',
+              borderLeftColor: 'white',
+              borderTopColor: 'transparent',
+              borderBottomColor: 'transparent'
+            }}
+          />
         </div>
       </div>
       
       <button
         onClick={toggleMute}
-        className="fixed top-6 right-6 z-50 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-all border border-gray-200"
+        className="fixed top-6 right-6 z-50 w-8 h-8 rounded-full bg-white/50 shadow-lg flex items-center justify-center hover:bg-white/70 transition-all border border-gray-300"
         aria-label={isMuted ? '음소거 해제' : '음소거'}
       >
         {isMuted ? (

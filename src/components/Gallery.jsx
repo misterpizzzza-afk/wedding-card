@@ -9,6 +9,8 @@ export default function Gallery() {
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
   const galleryRef = useRef(null)
+  const thumbnailRefs = useRef({})
+  const thumbnailContainerRef = useRef(null)
 
   const itemsPerPage = 9
   const displayedImages = expanded ? DATA.gallery : DATA.gallery.slice(0, itemsPerPage)
@@ -73,6 +75,21 @@ export default function Gallery() {
     }
   }, [open])
 
+  // 썸네일 중앙 스크롤
+  React.useEffect(() => {
+    if (open && thumbnailRefs.current[currentIndex]) {
+      const container = thumbnailContainerRef.current
+      const thumbnail = thumbnailRefs.current[currentIndex]
+      if (container && thumbnail) {
+        const containerWidth = container.clientWidth
+        const thumbnailLeft = thumbnail.offsetLeft
+        const thumbnailWidth = thumbnail.clientWidth
+        const scrollLeft = thumbnailLeft - (containerWidth / 2) + (thumbnailWidth / 2)
+        container.scrollTo({ left: scrollLeft, behavior: 'smooth' })
+      }
+    }
+  }, [currentIndex, open])
+
   return (
     <section ref={galleryRef}>
       <h2 className="section-title">갤러리</h2>
@@ -129,8 +146,9 @@ export default function Gallery() {
               setOpen(false)
             }}
             className="absolute top-4 right-4 bg-black/50 text-gray-200 hover:bg-black/70 text-xl z-10 w-8 h-8 flex items-center justify-center rounded-full"
+            style={{ lineHeight: '1' }}
           >
-            ✕
+            <span style={{ transform: 'translateY(-1px)' }}>✕</span>
           </button>
 
           <div 
@@ -185,14 +203,17 @@ export default function Gallery() {
           </div>
 
           {/* 썸네일 리스트 */}
-          <div className="w-full bg-black/70 py-4 backdrop-blur-sm" onClick={(e) => e.stopPropagation()}>
-            <div className="overflow-x-auto">
-              <div className="flex gap-2 justify-start px-4 min-w-max mx-auto" style={{ maxWidth: 'fit-content' }}>
+          <div className="w-full bg-black/70 backdrop-blur-sm" style={{ height: '72px', display: 'flex', alignItems: 'center' }} onClick={(e) => e.stopPropagation()}>
+            <div className="overflow-x-auto w-full" ref={thumbnailContainerRef}>
+              <div className="flex gap-1 justify-start px-4 min-w-max" style={{ maxWidth: 'fit-content' }}>
                 {DATA.gallery.map((src, i) => (
                   <button
                     key={i}
+                    ref={(el) => {
+                      if (el) thumbnailRefs.current[i] = el
+                    }}
                     onClick={() => setCurrentIndex(i)}
-                    className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all ${
+                    className={`flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden transition-all ${
                       currentIndex === i 
                         ? 'ring-3 ring-white scale-110 opacity-100' 
                         : 'opacity-50 hover:opacity-80'
