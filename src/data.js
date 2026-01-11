@@ -15,7 +15,8 @@ export const DATA = {
   datetime: '2026-05-10T11:20:00', // ISO format (local time)
   venue: {
     name: '더컨벤션 영등포 1층 그랜드볼룸홀',
-    address: '서울 영등포구 국회대로38길 2'
+    address: '서울 영등포구 국회대로38길 2',
+    query: '더컨벤션 영등포'
   },
   gallery: [
     DSC00934,

@@ -1,11 +1,52 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { DATA } from '../data'
 import naverMapLogo from '../assets/logo/naver-map.webp'
 import kakaoMapLogo from '../assets/logo/kakao-map.png'
 import tmapLogo from '../assets/logo/tmap.svg'
+import heartMarker from '../assets/heart-marker.svg'
 
 export default function Location() {
   const { venue } = DATA
+  const mapRef = useRef(null)
+
+  useEffect(() => {
+    // 더컨벤션 영등포 좌표
+    const location = new window.naver.maps.LatLng(37.526702, 126.898882)
+
+    const map = new window.naver.maps.Map(mapRef.current, {
+      center: location,
+      zoom: 15,
+      mapTypeControl: false,
+      zoomControl: false,
+      scaleControl: false,
+    })
+
+    // 마커 추가
+    new window.naver.maps.Marker({
+      position: location,
+      map: map,
+      title: venue.name,
+    })
+
+    // 정보 윈도우 추가
+    const infoWindow = new window.naver.maps.InfoWindow({
+      content: `<div style="padding:10px; width:200px;">
+        <strong>${venue.name}</strong><br/>
+        ${venue.address}
+      </div>`,
+      backgroundColor: '#fff',
+      borderColor: '#ddd',
+      borderWidth: 1,
+      anchorSize: new window.naver.maps.Size(30, 40),
+      anchorSkew: true,
+      pixelOffset: new window.naver.maps.Point(0, -40),
+    })
+
+    window.naver.maps.Event.addListener(map, 'click', () => {
+      infoWindow.close()
+    })
+
+  }, [venue])
 
   return (
     <section className="px-6">
@@ -17,15 +58,16 @@ export default function Location() {
         <p className="text-base text-gray-700 font-semibold">{venue.address}</p>
       </div>
 
-      {/* 지도 */}
-      <div className="w-full mb-6 flex justify-center">
-        <div dangerouslySetInnerHTML={{__html: `
-          <div style="font:normal normal 400 12px/normal dotum, sans-serif; width:360px; height:220px; color:#333; position:relative"><div style="height: 190px;"><a href="https://map.kakao.com/?urlX=477625.9999999997&urlY=1118679.9999999988&itemId=871883439&q=%EB%8D%94%EC%BB%A8%EB%B2%A4%EC%85%98%20%EC%98%81%EB%93%B1%ED%8F%AC%EC%A0%90&srcid=871883439&map_type=TYPE_MAP&from=roughmap" target="_blank"><img class="map" src="http://t1.daumcdn.net/roughmap/imgmap/15f59473580155b9ecd2d66b15c1b2e17dcf4346db699391829ed7b386e4dff5" width="358px" height="188px" style="border:1px solid #ccc;"></a></div><div style="overflow: hidden; padding: 7px 11px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 0px 0px 2px 2px; background-color: rgb(249, 249, 249);"><a href="https://map.kakao.com" target="_blank" style="float: left;"><img src="//t1.daumcdn.net/localimg/localimages/07/2018/pc/common/logo_kakaomap.png" width="72" height="16" alt="카카오맵" style="display:block;width:72px;height:16px"></a><div style="float: right; position: relative; top: 1px; font-size: 11px;"><a target="_blank" href="https://map.kakao.com/?from=roughmap&srcid=871883439&confirmid=871883439&q=%EB%8D%94%EC%BB%A8%EB%B2%A4%EC%85%98%20%EC%98%81%EB%93%B1%ED%8F%AC%EC%A0%90&rv=on" style="float:left;height:15px;padding-top:1px;line-height:15px;color:#000;text-decoration: none;">로드뷰</a><span style="width: 1px;padding: 0;margin: 0 8px 0 9px;height: 11px;vertical-align: top;position: relative;top: 2px;border-left: 1px solid #d0d0d0;float: left;"></span><a target="_blank" href="https://map.kakao.com/?from=roughmap&eName=%EB%8D%94%EC%BB%A8%EB%B2%A4%EC%85%98%20%EC%98%81%EB%93%B1%ED%8F%AC%EC%A0%90&eX=477625.9999999997&eY=1118679.9999999988" style="float:left;height:15px;padding-top:1px;line-height:15px;color:#000;text-decoration: none;">길찾기</a><span style="width: 1px;padding: 0;margin: 0 8px 0 9px;height: 11px;vertical-align: top;position: relative;top: 2px;border-left: 1px solid #d0d0d0;float: left;"></span><a target="_blank" href="https://map.kakao.com?map_type=TYPE_MAP&from=roughmap&srcid=871883439&itemId=871883439&q=%EB%8D%94%EC%BB%A8%EB%B2%A4%EC%85%98%20%EC%98%81%EB%93%B1%ED%8F%AC%EC%A0%90&urlX=477625.9999999997&urlY=1118679.9999999988" style="float:left;height:15px;padding-top:1px;line-height:15px;color:#000;text-decoration: none;">지도 크게 보기</a></div></div><div><span style="border-bottom:0px none #333333;position:absolute;left:-24.988426208496094px;top:-135.97222900390625px;width:0px;height:40px"></span></div></div>
-        `}} />
-      </div>
+      {/* 네이버 지도 */}
+      <div 
+        ref={mapRef} 
+        className="w-full mb-6 flex justify-center rounded-lg overflow-hidden"
+        style={{ height: '360px', maxWidth: '100%' }}
+      />
+
 
       {/* 내비게이션 버튼 */}
-      <div className="flex gap-2 justify-center mb-6">
+      <div className="flex gap-2 justify-center mb-6 flex-wrap">
         <a className="flex items-center gap-2 text-sm px-3 py-2 border border-gray-300 rounded-full hover:border-gray-400 transition-all font-normal" href="https://map.naver.com/index.nhn?query=더컨벤션 영등포" target="_blank" rel="noreferrer">
           <img src={naverMapLogo} alt="네이버 지도" className="w-4 h-4" />
           네이버

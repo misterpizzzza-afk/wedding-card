@@ -1,0 +1,19 @@
+<svg width="35" height="35" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- 위치핀 (작은 배경) -->
+  <path d="M 17.5 2 C 12 2 7.5 6.5 7.5 12 C 7.5 18 17.5 30 17.5 30 C 17.5 30 27.5 18 27.5 12 C 27.5 6.5 23 2 17.5 2 Z" 
+        fill="#FF5252" 
+        filter="url(#shadow)"/>
+  
+  <!-- 흰색 원 (원래 크기) -->
+  <circle cx="17.5" cy="11" r="5.5" fill="#FFFFFF"/>
+  
+  <!-- 빨간색 하트 (더 큼) -->
+  <path d="M 17.5 14 C 17.5 14 14.5 11.5 14.5 9.8 C 14.5 8.8 15.1 8.2 15.9 8.2 C 16.5 8.2 17 8.4 17.5 9 C 18 8.4 18.5 8.2 19.1 8.2 C 19.9 8.2 20.5 8.8 20.5 9.8 C 20.5 11.5 17.5 14 17.5 14 Z" 
+        fill="#FF5252"/>
+</svg>
