@@ -9,6 +9,7 @@ import Gallery from './components/Gallery'
 import Location from './components/Location'
 import Account from './components/Account'
 import Footer from './components/Footer'
+import KakaoShare from './components/KakaoShare'
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true)
@@ -76,6 +77,7 @@ export default function App() {
         </div>
       </main>
       <Footer />
+      <KakaoShare />
     </div>
     </>
   )
