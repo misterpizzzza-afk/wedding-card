@@ -8,6 +8,7 @@ export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
+  const [imageLoaded, setImageLoaded] = useState({})
   const galleryRef = useRef(null)
   const thumbnailRefs = useRef({})
   const thumbnailContainerRef = useRef(null)
@@ -108,10 +109,14 @@ export default function Gallery() {
               setOpen(true)
             }}
           >
+            {!imageLoaded[i] && (
+              <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+            )}
             <img 
               src={src} 
               alt={`gallery-${i}`} 
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onLoad={() => setImageLoaded(prev => ({...prev, [i]: true}))}
             />
           </div>
         ))}
