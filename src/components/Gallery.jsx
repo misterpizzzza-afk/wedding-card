@@ -94,7 +94,7 @@ export default function Gallery() {
       
       {/* 갤러리 그리드 */}
       <div 
-        className="grid grid-cols-3 gap-2 overflow-hidden transition-all duration-700 ease-in-out"
+        className={`grid grid-cols-3 gap-2 overflow-hidden ${expanded ? 'transition-all duration-700 ease-in-out' : ''}`}
         style={{
           maxHeight: expanded ? '2000px' : `${Math.ceil(itemsPerPage / 3) * 140}px`,
         }}
