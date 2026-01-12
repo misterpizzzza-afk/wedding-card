@@ -109,9 +109,6 @@ export default function Gallery() {
               setOpen(true)
             }}
           >
-            {!imageLoaded[i] && (
-              <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
-            )}
             <img 
               src={src} 
               alt={`gallery-${i}`} 
