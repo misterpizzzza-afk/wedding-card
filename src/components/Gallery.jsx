@@ -95,7 +95,7 @@ export default function Gallery() {
       
       {/* 갤러리 그리드 */}
       <div 
-        className={`grid grid-cols-3 gap-2 overflow-hidden ${expanded ? 'transition-[max-height] duration-700 ease-in-out' : ''}`}
+        className={`grid grid-cols-3 gap-2 overflow-hidden`}
         style={{
           maxHeight: expanded ? '2000px' : `${Math.ceil(itemsPerPage / 3) * 140}px`,
         }}
@@ -143,7 +143,7 @@ export default function Gallery() {
           }}
         >
           {/* 이미지 카운터 */}
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/50 text-gray-200 px-3 py-1 rounded text-sm pointer-events-none">
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/50 text-gray-200 px-3 py-1 rounded text-sm pointer-events-none z-50">
             {currentIndex + 1} / {DATA.gallery.length}
           </div>
 

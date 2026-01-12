@@ -8,6 +8,7 @@ import Calendar from './components/Calendar'
 import Gallery from './components/Gallery'
 import Location from './components/Location'
 import Account from './components/Account'
+import Thanks from './components/Thanks'
 import Footer from './components/Footer'
 import KakaoShare from './components/KakaoShare'
 
@@ -73,6 +74,10 @@ export default function App() {
             <div className="divider my-8" />
             <div className="fade-in">
               <Account />
+            </div>
+            <div className="divider my-8" />
+            <div className="fade-in">
+              <Thanks />
             </div>
           </div>
         </main>
