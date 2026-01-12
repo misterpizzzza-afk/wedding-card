@@ -47,7 +47,7 @@ export default function Account() {
             {/* 펼치기/접기 버튼 */}
             <button
               onClick={() => toggleSide(acc.side)}
-              className="w-full text-left hover:bg-gray-50 transition-all flex items-center justify-between py-3 px-4 border border-gray-100 rounded-lg"
+              className="w-full text-left hover:bg-gray-50 transition-all flex items-center justify-between py-3 px-4 border border-gray-300 rounded-lg"
             >
               <p className="text-base text-gray-700 font-semibold">{acc.side}</p>
               <span className="text-gray-400">{expandedSides[acc.side] ? '▲' : '▼'}</span>
@@ -68,7 +68,7 @@ export default function Account() {
             >
               <div className="space-y-2 mt-2">
                 {acc.people.map((person, j) => (
-                  <div key={j} className="border border-gray-200 rounded-lg p-3">
+                  <div key={j} className="border border-gray-100 rounded-lg p-3 pl-4">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
                         <p className="text-sm text-gray-700 font-semibold mb-1">{person.desc} {person.name}</p>
