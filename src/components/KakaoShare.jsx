@@ -30,7 +30,7 @@ export default function KakaoShare() {
   const handleKakaoShare = () => {
     try {
       console.log('카카오 공유 시작')
-      const jsKey = import.meta.env.VITE_KAKAO_JS_KEY
+      const jsKey = '018cafaea137dc0bfe6d125671f0fce6'
       const templateId = 127828
 
       console.log('JS Key:', jsKey)
