@@ -29,26 +29,41 @@ export default function KakaoShare() {
 
   const handleKakaoShare = () => {
     try {
+      console.log('카카오 공유 시작')
       const jsKey = import.meta.env.VITE_KAKAO_JS_KEY
       const templateId = 127828
 
-      if (!jsKey || !window.Kakao) {
+      console.log('JS Key:', jsKey)
+      console.log('Window.Kakao:', window.Kakao)
+
+      if (!jsKey) {
+        console.error('VITE_KAKAO_JS_KEY 환경 변수가 설정되지 않았습니다')
         return
       }
 
+      if (!window.Kakao) {
+        console.error('Kakao SDK가 로드되지 않았습니다')
+        return
+      }
+
+      console.log('Kakao 초기화 중...')
       Kakao.init(jsKey)
 
       if (!Kakao.isInitialized()) {
+        console.error('Kakao 초기화 실패')
         return
       }
 
+      console.log('공유 시작', templateId)
       Kakao.Share.sendCustom({
         templateId: templateId,
         templateArgs: {}
       })
+      console.log('공유 완료')
     } catch (error) {
-      // 오류 발생 시 조용히 무시
       console.error('카카오톡 공유 실패:', error)
+      console.error('에러 상세:', error.message)
+      console.error('에러 스택:', error.stack)
     }
   }
 
