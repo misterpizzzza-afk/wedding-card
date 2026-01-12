@@ -72,7 +72,7 @@ export default function Location() {
           <img src={naverMapLogo} alt="네이버 지도" className="w-4 h-4" />
           네이버
         </a>
-        <a className="flex items-center gap-2 text-sm px-3 py-2 border border-gray-300 rounded-full hover:border-gray-400 transition-all font-normal" href="https://map.kakao.com/link/search/더컨벤션 영등포" target="_blank" rel="noreferrer">
+        <a className="flex items-center gap-2 text-sm px-3 py-2 border border-gray-300 rounded-full hover:border-gray-400 transition-all font-normal" href="https://map.kakao.com/link/search/%EB%8D%94%EC%BB%A8%EB%B2%A4%EC%85%98%20%EC%98%81%EB%93%B1%ED%8F%AC" target="_blank" rel="noreferrer">
           <img src={kakaoMapLogo} alt="카카오맵" className="w-4 h-4" />
           카카오
         </a>

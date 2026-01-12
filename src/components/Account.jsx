@@ -71,9 +71,8 @@ export default function Account() {
                   <div key={j} className="border border-gray-200 rounded-lg p-3">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <p className="text-sm text-gray-600 font-semibold mb-3">{person.desc}</p>
-                        <p className="text-base text-gray-800 font-normal mb-2">{person.number}</p>
-                        <p className="text-sm text-gray-700 font-normal">{person.bank} {person.name}</p>
+                        <p className="text-sm text-gray-700 font-semibold mb-1">{person.desc} {person.name}</p>
+                        <p className="text-sm text-gray-700 font-normal">{person.bank} {person.number}</p>
                       </div>
                       <CopyButton text={person.number} />
                     </div>
