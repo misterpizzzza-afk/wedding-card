@@ -85,10 +85,10 @@ export default function Location() {
       {/* 자가용 정보 */}
       <div className="mb-6 text-base text-gray-700 font-normal leading-relaxed">
         <p className="font-semibold mb-3 text-base">자가용</p>
-        <p className="text-sm font-semibold mb-2">{venue.address}</p>
-        <p className="text-sm font-normal mb-3">네비게이션 검색: <span className="font-normal">[더컨벤션 영등포]</span></p>
-        <p className="text-sm text-gray-600 mb-2">최대 400대 수용 가능, 2시간 무료주차</p>
-        <p className="text-sm text-gray-500">*대중교통 이용을 권장드립니다.</p>
+        <p className="text-base font-semibold mb-2">{venue.address}</p>
+        <p className="text-base font-normal mb-3">네비게이션 검색: <span className="font-normal">[더컨벤션 영등포]</span></p>
+        <p className="text-base text-gray-600 mb-2">최대 400대 수용 가능, 2시간 무료주차</p>
+        <p className="text-base text-gray-500">*대중교통 이용을 권장드립니다.</p>
       </div>
 
       {/* 지하철 정보 */}
@@ -96,11 +96,11 @@ export default function Location() {
         <p className="font-semibold mb-4 text-base">지하철</p>
         
         <div className="mb-3">
-          <p className="text-sm font-normal mb-1">
+          <p className="text-base font-normal mb-1">
             <span className="inline-block w-3 h-3 rounded-full bg-green-500 mr-2 align-middle"></span>2호선 
             <span className="inline-block w-3 h-3 rounded-full bg-purple-500 mr-2 align-middle ml-2"></span>5호선
           </p>
-          <p className="text-sm font-normal">영등포구청역 ④번 출구 도보 3분</p>
+          <p className="text-base font-normal">영등포구청역 ④번 출구 도보 3분</p>
         </div>
       </div>
     </section>

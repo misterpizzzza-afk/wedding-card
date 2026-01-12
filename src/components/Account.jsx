@@ -34,7 +34,7 @@ export default function Account() {
   return (
     <section>
       <h2 className="section-title">마음 전하실 곳</h2>
-      <div className="text-center mb-6 text-sm text-gray-700 font-normal leading-relaxed">
+      <div className="text-center mb-6 text-base text-gray-700 font-normal leading-relaxed">
         <p className="mb-2">멀리서도 축하의 마음을</p>
         <p className="mb-2">전하고 싶으신 분들을 위해</p>
         <p className="mb-4">계좌번호를 안내드립니다.</p>
